@@ -1,0 +1,38 @@
+vmaccepteula
+rootpw $ESXPW
+autopart --firstdisk=local --overwritevmfs
+install cdrom
+network --bootproto=static --device=vmnic1 --ip=192.168.1.101 --netmask=255.255.255.0 --gateway=192.168.1.1 --hostname=ctpesx01.us.chs.net --nameserver=192.168.1.100
+reboot
+
+%post --unsupported --interpreter=python
+
+import vmkctl
+import subprocess
+import os
+
+
+source = '*'
+dest = '/vmfs/volumes/datastore1/'
+
+
+for lun in vmkctl.StorageInfoImpl().GetLuns():
+    if lun.GetPaths()[0].GetAdapter().GetDriver() == 'usb-storage':
+        usbPath = lun.GetConsoleDevice() + ':1'
+
+        args = ['/sbin/mcopy', '-si', usbPath, '\\::%s' % source, dest]
+
+        cmd = ' '.join(args)
+        pid = subprocess.Popen(cmd, shell=True)
+
+        _pid, rc = os.waitpid(pid.pid, 0)
+
+        if not rc:
+            print "Couldn't copy file on %s" % usbPath
+
+        else:
+        subprocess.call("cat /vmfs/volumes/datastore1/ctp.tar.* >> /vmfs/volumes/datastore1/ctp.tar", shell=True)
+        subprocess.call("tar xf /vmfs/volumes/datastore1/ctp.tar", shell=True)
+        subprocess.call("rm ctp.*", shell=True)
+        break
+
