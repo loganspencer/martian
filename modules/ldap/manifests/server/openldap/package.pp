@@ -49,7 +49,7 @@ class ldap::server::openldap::package(
       group   => 'root',
       mode    => '0644',
       content => template('ldap/server/openldap/slapd_default.erb'),
-      require => Package[$openldap_packages],
+      require => Package[$debian_packages],
     }
   }
 }
