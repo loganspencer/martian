@@ -51,6 +51,7 @@ class ldap::params {
       
 
   }
+}
   
   $lp_tmp_dir = '/tmp/openldap'
   
