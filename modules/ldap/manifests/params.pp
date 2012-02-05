@@ -49,13 +49,7 @@ class ldap::params {
       $lp_openldap_var_dir = '/var/lib/ldap'
       $lp_openldap_modulepath = 'UNDEF'
       
-      if $operatingsystem ~= /.*suse$/ {
-        $openldap_packages = ['openldap2', 'libltdl7', 'openldap2-back-meta']
-      } else {
-        # Default case for Red Hat
-        $openldap_packages = ['openldap', 'openldap-servers', 'openldap-clients']
-      }
-    }
+
   }
   
   $lp_tmp_dir = '/tmp/openldap'
