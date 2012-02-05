@@ -1,0 +1,14 @@
+#!/bin/bash
+echo "Downloading and configuring Puppet Enterprise 2.0"
+cd ~
+wget http://pm.puppetlabs.com/puppet-enterprise/2.0/puppet-enterprise-2.0-ubuntu-10.04-i386.tar.gz
+tar xvf puppet-enterprise-2.0-ubuntu-10.04-i386.tar.gz
+cd ~/puppet-enterprise-2.0.2-ubuntu-10.04-i386/
+./puppet-enterprise-installer -a /opt/martian/puppetent.answers
+rm -rf /etc/puppetlabs/puppet/manifests
+ln -s /opt/martian/manifests /etc/puppetlabs/puppet/manifests
+rm -rf /etc/puppetlabs/puppet/modules
+ln -s /opt/martian/modules /etc/puppetlabs/puppet/modules
+rm -rf ~/puppet-enterprise-2.0.2-ubuntu-10.04-i386/
+rm ~/puppet-enterprise-2.0-ubuntu-10.04-i386.tar.gz
+echo "DONE"
