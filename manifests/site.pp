@@ -30,7 +30,6 @@ node default {
 node 'bigmarv.loganspencer.com' {
 	class { 'ldap':
 		server => 'true',
-		server_type => 'openldap',
 		ssl => 'false',
 	}
 
