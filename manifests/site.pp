@@ -33,7 +33,6 @@ node 'bigmarv.loganspencer.com' {
 		server_type => 'openldap',
 		ssl => 'false',
 	}
-}
 
 # Server Configuration:
  ldap::define::domain {'loganspencer.com':
@@ -46,4 +45,5 @@ node 'bigmarv.loganspencer.com' {
    ensure => 'present',
    source => 'puppet:///modules/ldap/schema/websages.schema',
  }
+}
 
